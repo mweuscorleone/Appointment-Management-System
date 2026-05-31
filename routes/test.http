@@ -1,0 +1,17 @@
+
+    GET  http://127.0.0.1:8000/api/patients/list
+    Content-Type: application/json
+    Accept: application/json
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE3ODAxNDk4ODMsImV4cCI6MTc4NzQ2OTg4MywibmJmIjoxNzgwMTQ5ODgzLCJqdGkiOiJYUWpaYlIyaFg4QU9vWW5OIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjciLCJyb2xlIjoiYWRtaW4ifQ.y5uPGqtcr2rxpYaHpBkWTNxYVzDtnXJJMygsiYGYY2s
+    X-API-KEY: e83LuLJvpX6a2VQhCAyp0Y1h4Clpi05Cj8wQeLhKjkDT3hHI6t3FG7hQ85YT0nQTjHsDWTgnHXphGq96vG00wRt7eLZ0YlrUuiBR2jM6s94vsSaA5PQUW52ahFgCrv3ELM7TlneOR7PViKsTOkuO5v4EEPiMLbWFhZZqmGiXjwmRciJAPYsvQ4XtemDfL4VdcLW4fcun
+
+
+    {
+        "full_name" : "Mweus Computer Tech",
+        "sponsor_id" : 1,
+        "date_of_birth" : "1988-11-12",
+        "gender" : "male",
+        "phone" : "0780000000",
+        "address" : "Mwanza - Igogo"
+       
+    }

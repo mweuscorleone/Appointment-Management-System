@@ -12,4 +12,11 @@ class Clinic extends Model
     public function appointment(){
         return $this->hasMany(Appoitment::class, 'clinic_id');
     }
+
+    public function checkIn(){
+        return $this->hasMany(CheckIn::class, 'clinic_id');
+    }
+    public function payment(){
+        return $this->hasMany(Payment::class, 'clinic_id');
+    }
 }

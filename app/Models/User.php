@@ -38,6 +38,18 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
     public function appointment(){
-        return $this->hasm(Appointment::class, 'doctor_id');
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+    public function checkIn(){
+        return $this->hasMany(CheckIn::class, 'doctor_id');
+    }
+    public function checkInBy(){
+        return $this->hasMany(CheckIn::class, 'user_id');
+    }
+    public function payment(){
+        return $this->hasMany(Payment::class, 'doctor_id');
+    }
+    public function paymentBy(){
+        return $this->hasMany(Payment::class, 'user_id');
     }
 }

@@ -8,6 +8,13 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\CheckInController;
+use App\Http\Controllers\ItemPriceController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ItemCategoryController;
+use App\Http\Controllers\ConsultationTypeController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -27,10 +34,38 @@ Route::middleware(['auth:api', 'role:admin'])->group(function (){
     Route::delete('delete/clinic/{id}', [ClinicController::class, 'destroy']);
     Route::get('clinics/list', [ClinicController::class, 'index']);
 
+    //ITEM MANAGEMENT 
+    Route::post('create/item', [ItemController::class, 'store']);
+    Route::put('update/item/{id}', [ItemController::class, 'update']);
+    Route::delete('delete/item/{id}', [ItemController::class, 'destroy']);
+    Route::get('items/list', [ItemController::class, 'indexx']);
+
+    //ITEM CATEGORIES MANAGEMENT
+    Route::post('create/category', [ItemCategoryController::class, 'store']);
+    Route::put('update/category/{id}', [ItemCategoryController::class, 'update']);
+    Route::delete('delete/category/{id}', [ItemCategoryController::class, 'destroy']);
+    Route::get('categories/list', [ItemCategoryController::class, 'index']);
+
+    //SPONSOR MANAGEMENT
+    Route::post('create/sponsor', [SponsorController::class, 'store']);
+    Route::put('update/sponsor/{id}', [SponsorController::class, 'update']);
+    Route::delete('/delete/sponsor/{id}', [SponsorController::class, 'destroy']);
+    Route::get('sponsors/list', [SponsorController::class, 'index']);
+
+    //ITEM PRICE MANAGEMENT
+    Route::post('item/price', [ItemPriceController::class, 'store']);
+
+
+    //CONSULTATION TYPES MANAGEMENT
+    Route::post('create/consultation-type', [ConsultationTypeController::class, 'store']);
+    Route::put('update/consultation-type/{id}', [ConsultationTypeController::class, 'update']);
+    Route::delete('delete/consultation-type/{id}', [ConsultationTypeController::class, 'destroy']);
+    Route::get('consultation-types/list', [ConsultationTypeController::class, 'index']);
+
 
 });
 
-Route::middleware(['auth:api', 'role:reception,admin'])->group(function (){
+Route::middleware(['auth:api', 'role:reception,admin,doctor'])->group(function (){
 
     //PATIENT MANAGEMENT ROUTES
     Route::post('register/patient', [PatientController::class, 'store']);
@@ -40,6 +75,14 @@ Route::middleware(['auth:api', 'role:reception,admin'])->group(function (){
 
     //APPOINTMENT MANAGEMENT ROUTES
     Route::post('create/appointment', [AppointmentController::class, 'store']);
+
+    //PATIENT CHECKIN
+    Route::post('patient/check-in', [CheckInController::class, 'store']);
+    Route::get('checked-in/patients', [CheckInController::class, 'getCheckedInPatients']);
+
+    //PATIENT PAYMENTS 
+    Route::post('patient/payment/{checkId}', [PaymentController::class, 'makePayment']);
+
 
 
 

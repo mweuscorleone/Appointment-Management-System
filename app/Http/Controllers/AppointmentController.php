@@ -15,7 +15,7 @@ class AppointmentController extends Controller
     public function store(Request $request){
         $request->validate([
             'doctor_id' => 'required|numeric|exists:users,id',
-            'patient_id' => 'required|numeric|exists:patients,id',
+            'patient_id' => 'required|numeric|unique:appointments,patient_id|exists:patients,id',
             'clinic_id' => 'required|numeric|exists:clinics,id',
             'appointment_date' => 'required|date|after:' . Carbon::now()->addHour()->toDateTimeString(),
             'status'  => 'nullable|string|in:scheduled,canceled,postponed,served'
@@ -25,9 +25,10 @@ class AppointmentController extends Controller
             'patient_id' => "provided patient id {$request->patient_id} do not exist please try again",
             'clinic_id' => "provided clinic id {$request->clinic_id} do not exist please try again",
             'appointment_date.after' => 'Appointment date must be scheduled at least 1 hour from now in advance',
-            'status.in' => 'appointment status should be in this list (sheduled,cancelled,postponed,completed,not attended)'
+            'status.in' => 'appointment status should be in this list (sheduled,cancelled,postponed,completed,not attended)',
+            'patient_id.unique' => 'appointment for ' . DB::table('patients')->where('id', $request->patient_id)->value('full_name') . 
+                                    ' has already been made with an Appointment ID ' .  DB::table('appointments')->where('patient_id', $request->patient_id)->value('id')
         ]);
-
         $doctor = User::where('id', $request->doctor_id)->where('role', 'doctor')->first();
 
         if(!$doctor){
